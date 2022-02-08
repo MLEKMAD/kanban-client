@@ -75,7 +75,7 @@ function AddTask() {
     console.log("inputs", inputs);
     const response = await serverService.createTask(inputs);
     console.log({response})
-    //history.push("/dashbord");
+    history.push("/dashbord");
   };
 
   return (

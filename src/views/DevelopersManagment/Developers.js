@@ -2,16 +2,12 @@
 import React, { useState, useEffect } from "react";
 import PageHeader from "../components/PageHeader";
 
-// import { AppContext } from "../../context/AppContext";
-import CRUDTable from "../components/CRUDTable";
 import makeApiServices from "../../api/ApiServices";
-// import { Link } from "react-router-dom";
 const ApiServices = makeApiServices();
 const { serverService } = ApiServices;
 const Developers = () => {
   const [developers, setDevelopers] = useState([]);
   useEffect(() => {
-    const ListDevs = [];
     const getDevs = async() => {
       let {data} = await serverService.getDevelopers();
       data = data.map(dev => {
@@ -40,7 +36,35 @@ const Developers = () => {
                 style={{ height: "300px", maxHeight: "300px" }}
                 className='list  overflow-auto list-row list-hoverable'
               >
-                <CRUDTable columns={columns} data={developers}/>
+                <div className="card">
+      <div className="table-responsive">
+        <table className="table card-table table-vcenter text-nowrap datatable">
+          <thead>
+            <tr>
+              {columns.map((column, index) => (
+                <th key={index}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {developers.map((objectRow, indextr) => (
+              <tr key={indextr}>
+                {objectRow.map((element, indextd) => (
+                  <td
+                    key={indextd}
+                    style={{
+                      whiteSpace: "nowrap ",
+                    }}
+                  >
+                    {element}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
               </div>
             </div>
           </div>
